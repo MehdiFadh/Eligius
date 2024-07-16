@@ -28,7 +28,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
         } else if (user.username === "user2") {
             window.location.href = 'home2.html';  // Redirection vers la page d'accueil pour user2
         } else {
-            window.location.href = 'defaultHome.html';  // Redirection par défaut
+            window.location.href = 'index.html';  // Redirection par défaut
         }
     } else {
         errorMessage.textContent = 'Nom d\'utilisateur ou mot de passe incorrect.';
