@@ -10,7 +10,7 @@
     <button class="theme-toggle" id="themeToggle">Thème</button>
     <div class="login-container">
         <h1>Connexion</h1>
-        <form action="/login" method="post">
+        <form action="/login" method="post" id="loginForm">
             <label for="username">Nom d'utilisateur</label>
             <input type="text" id="username" name="username" required>
             
@@ -19,8 +19,10 @@
             
             <button type="submit">Se connecter</button>
         </form>
+        <p id="errorMessage" class="error-message" ></p>
     </div>
 
     <script src="script.js"></script>
+    <script src="users.js"></script>
 </body>
 </html>
