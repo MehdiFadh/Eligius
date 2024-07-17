@@ -19,6 +19,14 @@ body {
 }
 
 
+.light-theme {
+    --background-gradient: linear-gradient(135deg, #ffffff, #e0e0e0);
+    --text-color: #000;
+    --input-background: rgba(0, 0, 0, 0.1);
+    --button-background: #007bff;
+    --button-hover-background: #0056b3;
+}
+
 
 h1 {
     text-align: center;
