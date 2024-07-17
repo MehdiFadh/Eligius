@@ -2,8 +2,9 @@ document.getElementById('butTheme').addEventListener('click', function() {
     document.body.classList.toggle('light-theme');
 });
 
-document.getElementById('loginForm').addEventListener('submit', function(event) {
-    event.preventDefault();
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+        event.preventDefault();
     
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
@@ -19,8 +20,10 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     
     // Vérifiez si l'utilisateur existe avant d'accéder à ses propriétés
     if (user) {
+        
         errorMessage.textContent = '';
         alert('Connexion réussie ! Bonjour ' + user.username);
+        localStorage.setItem('isAuthenticated', 'true');
         
         // Redirection en fonction de l'utilisateur connecté
         if (user.username === "user1") {
@@ -35,5 +38,4 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
         errorMessage.textContent = 'Nom d\'utilisateur ou mot de passe incorrect.';
     }
 });
-
-
+});
