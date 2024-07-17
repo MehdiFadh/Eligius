@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
             window.location.href = 'home_user2.html';  // Redirection vers la page d'accueil pour user2
         } 
         else {
-            window.location.href = 'home_user3.html';  // Redirection vers la page d'accueil pour user2
+            window.location.href = 'https://mehdifadh.github.io/Portfolio/';  // Redirection vers la page d'accueil pour user2
         }
     } else {
         errorMessage.textContent = 'Nom d\'utilisateur ou mot de passe incorrect.';
