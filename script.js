@@ -20,7 +20,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     // Vérifiez si l'utilisateur existe avant d'accéder à ses propriétés
     if (user) {
         errorMessage.textContent = '';
-        alert('Connexion réussie !');
+        alert('Connexion réussie ! Bonjour ' + user.username);
         
         // Redirection en fonction de l'utilisateur connecté
         if (user.username === "user1") {
