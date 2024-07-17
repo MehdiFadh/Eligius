@@ -3,6 +3,6 @@ document.getElementById('butTheme').addEventListener('click', function() {
 });
 
 
-document.getElementById('butDeconnexion').addEventListener('click', function() {
+document.getElementById('butDeconnection').addEventListener('click', function() {
     window.location.href = 'index.html';
 });
