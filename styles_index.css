@@ -109,10 +109,10 @@ button:focus {
     outline: none;
 }
 
-.theme-toggle {
+.theme-toggle{
     position: absolute;
     top: 20px;
-    right: 20px;
+    left: 20px;
     padding: 10px 20px;
     border: none;
     border-radius: 6px;
@@ -125,4 +125,18 @@ button:focus {
 
 .theme-toggle:hover {
     background-color: var(--button-hover-background);
+}
+
+.butDeco {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    background-color: var(--button-background);
+    color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
