@@ -1,4 +1,4 @@
-document.getElementById('themeToggle').addEventListener('click', function() {
+document.getElementById('butTheme').addEventListener('click', function() {
     document.body.classList.toggle('light-theme');
 });
 
@@ -24,9 +24,9 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
         
         // Redirection en fonction de l'utilisateur connecté
         if (user.username === "user1") {
-            window.location.href = 'home.html';  // Redirection vers la page d'accueil pour user1
+            window.location.href = 'home_user1.html';  // Redirection vers la page d'accueil pour user1
         } else {
-            window.location.href = 'home2.html';  // Redirection vers la page d'accueil pour user2
+            window.location.href = 'home_user2.html';  // Redirection vers la page d'accueil pour user2
         } 
     } else {
         errorMessage.textContent = 'Nom d\'utilisateur ou mot de passe incorrect.';
@@ -34,10 +34,3 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
 });
 
 
-// Exemple de suivi d'un clic sur un bouton
-document.getElementById('themeToggle').addEventListener('click', function() {
-    gtag('event', 'click', {
-        'event_category': 'button',
-        'event_label': 'My Button'
-    });
-});
