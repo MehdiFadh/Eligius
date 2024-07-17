@@ -32,3 +32,12 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
         errorMessage.textContent = 'Nom d\'utilisateur ou mot de passe incorrect.';
     }
 });
+
+
+// Exemple de suivi d'un clic sur un bouton
+document.getElementById('themeToggle').addEventListener('click', function() {
+    gtag('event', 'click', {
+        'event_category': 'button',
+        'event_label': 'My Button'
+    });
+});
