@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Redirection en fonction de l'utilisateur connecté
         if (user.username === "user1") {
             window.location.href = 'home_user1.html';  // Redirection vers la page d'accueil pour user1
-        } else if (user.username === "user2") {
+        } else if (user.username === "nissaf") {
             window.location.href = 'home_user2.html';  // Redirection vers la page d'accueil pour user2
         } 
         else {
