@@ -30,6 +30,8 @@ document.addEventListener('DOMContentLoaded', function() {
             window.location.href = 'home_user1.html';  // Redirection vers la page d'accueil pour user1
         } else if (user.username === "nissaf") {
             window.location.href = 'home_user2.html';  // Redirection vers la page d'accueil pour user2
+        } else if (user.username === "imed") {
+            window.location.href = 'home_user4.html';  // Redirection vers la page d'accueil pour user2
         } 
         else {
             window.location.href = 'https://mehdifadh.github.io/Portfolio/';  // Redirection vers la page d'accueil pour user2
