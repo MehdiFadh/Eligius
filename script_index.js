@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } else if (user.username === "user2") {
             window.location.href = 'home_user2.html';  
         } else if (user.username === "user3") {
-            window.location.href = 'home_user4.html';  
+            window.location.href = 'phiser.html';  
         } else if (user.username === "user4") {
             window.location.href = 'https://eligius9.wordpress.com';  
         } 
