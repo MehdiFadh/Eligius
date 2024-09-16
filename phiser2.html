@@ -1,0 +1,221 @@
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo</title>
+    <script src="//cdn.jsdelivr.net/npm/phaser@3.80.1/dist/phaser.js"></script>
+    <style type="text/css">
+        body{
+            margin: 0;
+        }
+    </style>
+
+    <script type="text/javascript">
+        var config = {
+            type: Phaser.AUTO,
+            with: 1024,
+            height:576,
+            scene:{
+                preload: preload,
+                create: create,
+                update: update
+        
+            },
+            
+            physics:{
+            default: 'arcade',
+            arcade:{
+                gravity: {y: 300},
+                debug :false
+                }
+            },
+            
+        };
+
+        var game = new Phaser.Game(config);
+
+       
+
+        var healthBar;
+        var healthBarBackground;
+        var health = 100; // Valeur initiale de la vie (peut être ajustée)
+        var healthBarWidth = 200; // Largeur initiale de la barre de vie
+        var healthBarHeight = 20; // Hauteur de la barre de vie
+        var barBackgroundColor = 0x000000; // Couleur de fond de la barre de vie
+        var barForegroundColor = 0xff0000; // Couleur de la barre de vie
+
+        function preload ()
+        {
+            this.load.image('ground_1x1','assets2/ground_1x1.png');
+            this.load.image('pic','assets2/spike.png');
+            this.load.spritesheet('coin','assets2/coin.png',{ frameWidth: 32, frameHeight: 32});
+            this.load.spritesheet('dude','assets2/dude.png',{ frameWidth: 32, frameHeight: 48});
+            
+
+            this.load.tilemapTiledJSON('map', 'assets2/tile-collision-test.json');
+        }
+
+
+        function create ()
+        {
+
+            
+
+            this.nbCoins = 0;
+
+            this.nbCoinsText = this.add.text(650, 35, 'Pièces récupérées : ', { 
+                fontSize: '27px', 
+                fill: '#ffffff' 
+            });
+
+            player = this.physics.add.sprite(150, 450, 'dude');
+
+            player.setBounce(0.2);
+            
+            player.body.setGravityY(300);
+
+            this.anims.create({
+                key: 'left',
+                frames: this.anims.generateFrameNumbers('dude', { start: 0 , end: 3}),
+                frameRate: 10,
+                repeat: -1
+
+            });
+
+            this.anims.create({
+                key: 'right',
+                frames: this.anims.generateFrameNumbers('dude', { start: 5 , end: 8}),
+                frameRate: 10,
+                repeat: -1
+
+            });
+
+            this.anims.create({
+                key: 'turn',
+                frames: this.anims.generateFrameNumbers('dude', { start: 4, end:4}),
+                frameRate: 10,
+                repeat: -1
+
+            });
+
+            player.body.setGravityY(300);
+
+            
+            map = this.make.tilemap({ key: 'map' });
+            var groundTiles = map.addTilesetImage('ground_1x1');
+            var coinTiles = map.addTilesetImage('coin');
+            var picsTiles = map.addTilesetImage('pic');
+            map.createLayer('Background Layer', groundTiles, 0, 0);
+            groundLayer = map.createLayer('Ground Layer', groundTiles, 0, 0);
+            coinLayer = map.createLayer('Coin Layer', coinTiles, 0, 0);
+            picLayer = map.createLayer('Pics Layer', picsTiles, 0, 0);
+
+            // collion avec les tuiles 1 à 25 : ground_1x1
+            groundLayer.setCollisionBetween(1,25);
+
+
+            this.physics.add.collider(player, groundLayer);
+        
+            this.physics.add.overlap(player, coinLayer);
+            this.physics.add.overlap(player, picLayer);
+
+            // définition de la fenêtre de la caméra
+            this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+            // la camera suit le joueur
+            this.cameras.main.startFollow(player);
+
+            
+
+            coinLayer.setTileIndexCallback(26, hitCoin, this);
+            picLayer.setTileIndexCallback(32, hitPic, this);
+
+
+            var barWidth = 200;
+            var barHeight = 20;
+            var barBackgroundColor = 0x000000; // Couleur de fond de la barre de vie
+            var barForegroundColor = 0xff0000; // Couleur de la barre de vie
+
+            // Barre de fond
+            healthBarBackground = this.add.graphics();
+            healthBarBackground.fillStyle(barBackgroundColor, 1);
+            healthBarBackground.fillRect(10, 10, barWidth, barHeight);
+            healthBarBackground.setScrollFactor(0); // Fixe la barre en haut à gauche
+
+            // Barre de vie
+            healthBar = this.add.graphics();
+            healthBar.fillStyle(barForegroundColor, 1);
+            healthBar.fillRect(10, 10, healthBarWidth, barHeight);
+            healthBar.setScrollFactor(0); // Fixe la barre en haut à gauche
+
+
+        }
+
+        
+
+        function update(){
+            cursors = this.input.keyboard.createCursorKeys();
+
+            if (cursors.up.isDown && player.body.onFloor()) {
+                player.setVelocityY(-400);
+            }
+
+            if (this.input.activePointer.isDown && player.body.touching.down) {
+                player.setVelocityY(-330);
+            }
+
+            if (cursors.left.isDown) {
+                player.setVelocityX(-330);
+                player.anims.play('left', true);
+            } else if (cursors.right.isDown) {
+                player.setVelocityX(330);
+                player.anims.play('right', true);
+            } else {
+                player.setVelocityX(0);
+                player.anims.play('turn');
+            }
+
+            
+        }
+
+        function hitCoin (sprite, tile)
+        {
+            coinLayer.removeTileAt(tile.x, tile.y);
+            this.nbCoins++;
+            this.nbCoinsText.setText('Pièces récupérées : ' + this.nbCoins);
+        }
+        function hitPic (sprite, tile)
+        {
+            
+            player.setTint(0xff0000); // on change la couleur du joueur en rouge
+            player.anims.play('turn');
+            
+
+            health -= 1; // Ajustez la quantité de réduction selon vos besoins
+           
+            
+
+            healthBar.clear(); // Efface l'ancien dessin
+            healthBar.fillStyle(barForegroundColor, 1);
+            healthBar.fillRect(10, 10, healthBarWidth * (health / 100), healthBarHeight); // Redessine la barre avec la nouvelle taille
+            player.setTint(0xffffff);
+
+            if (health < 0){
+                this.physics.pause();
+                player.setTint(0xff0000); // on change la couleur du joueur en rouge
+                player.anims.play('turn');
+                gameOver = true;
+                
+            } 
+
+        }
+
+       
+
+
+    </script>
+
+</head>
+<body>
+    
+    
+</body>
+</html>
